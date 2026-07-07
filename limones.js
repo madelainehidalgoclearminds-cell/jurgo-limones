@@ -4,11 +4,16 @@ let cxt=canvas.getContext("2d")
 const ALTURASUELO=40
 const ALTURAPERSONAJE=60
 const ANCHOPERSONAJE=50
+const ANCHOLIMON=15
+const ALTURALIMON=15
 let personajeX=canvas.width/2
+let limonX=canvas.width/2
+let limonY=0
 
 function dibujarIniciar(){
     dibujarPersonaje()
     dibujarSuelo()
+    dibujarlimon()
 }
 function dibujarSuelo(){
     cxt.fillStyle="green"
@@ -31,7 +36,18 @@ function actualizarPantalla(){
     limpiarCanvas()
     dibujarSuelo()
     dibujarPersonaje()
+    dibujarlimon()
 }
 function limpiarCanvas(){
     cxt.clearRect(0,0,canvas.width,canvas.height)
+}
+function dibujarlimon(){
+    cxt.fillStyle="green"
+    cxt.fillRect(limonX,limonY,ANCHOLIMON,ALTURALIMON)
+
+}
+function bajarlimon(){
+    limonY=limonY+10
+    dibujarlimon()
+    actualizarPantalla()
 }
