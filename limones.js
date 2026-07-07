@@ -4,6 +4,7 @@ let cxt=canvas.getContext("2d")
 const ALTURASUELO=40
 const ALTURAPERSONAJE=60
 const ANCHOPERSONAJE=50
+let personajeX=canvas.width/2
 
 function dibujarIniciar(){
     dibujarPersonaje()
@@ -16,6 +17,18 @@ function dibujarSuelo(){
 
 function dibujarPersonaje(){
     cxt.fillStyle="red"
-    cxt.fillRect(canvas.width/2,canvas.height-(ALTURASUELO+ALTURAPERSONAJE),ANCHOPERSONAJE,ALTURAPERSONAJE)
+    cxt.fillRect(personajeX,canvas.height-(ALTURASUELO+ALTURAPERSONAJE),ANCHOPERSONAJE,ALTURAPERSONAJE)
+}
+function moverIzquierda(){
+    personajeX=personajeX-10;
+    actualizarPantalla()
 }
 
+function actualizarPantalla(){
+    limpiarCanvas()
+    dibujarSuelo()
+    dibujarPersonaje()
+}
+function limpiarCanvas(){
+    cxt.clearRect(0,0,canvas.width,canvas.height)
+}
