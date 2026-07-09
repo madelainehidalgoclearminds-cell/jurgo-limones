@@ -4,13 +4,17 @@ let cxt=canvas.getContext("2d")
 const ALTURASUELO=40
 const ALTURAPERSONAJE=60
 const ANCHOPERSONAJE=50
-const ANCHOLIMON=15
-const ALTURALIMON=15
+const ANCHOLIMON=20
+const ALTURALIMON=20
 let personajeX=canvas.width/2
-let limonX=canvas.width/2
-let limonY=0
+let limonX=canvas.width/2;
+let limonY=0;
 let personajeY=canvas.height-(ALTURASUELO+ALTURAPERSONAJE)
+let puntaje=0
+let vidas=3
+let velocidadCaida=200
 function dibujarIniciar(){
+    setInterval(bajarlimon,velocidadCaida)
     dibujarPersonaje()
     dibujarSuelo()
     aparecerLimon()
@@ -27,12 +31,12 @@ function dibujarPersonaje(){
 function moverIzquierda(){
     personajeX=personajeX-10;
     actualizarPantalla()
-    detectarColision()
+    
 }
 function moverDerecha(){
     personajeX=personajeX+10;
     actualizarPantalla()
-    detectarColision()    
+     
 }
 function actualizarPantalla(){
     limpiarCanvas()
@@ -44,20 +48,24 @@ function limpiarCanvas(){
     cxt.clearRect(0,0,canvas.width,canvas.height)
 }
 function dibujarlimon(){
-    cxt.fillStyle="green"
+    cxt.fillStyle="yellow"
     cxt.fillRect(limonX,limonY,ANCHOLIMON,ALTURALIMON)
 
 }
 function bajarlimon(){
     limonY=limonY+10
     dibujarlimon()
-    detectarColision()
+    detectarAtrapado()
     actualizarPantalla()
+    detectarPiso()
 }
-function detectarColision(){
+function detectarAtrapado(){
     if(limonX+ANCHOLIMON > personajeX && limonX < personajeX+ANCHOPERSONAJE && limonY+ALTURALIMON > personajeY && limonY < personajeY+ALTURAPERSONAJE){
-        alert("atrapado")
+        
         aparecerLimon()
+        puntaje=puntaje+1
+        mostrarenSpam("txtPuntaje",puntaje)
+        
     }
     
 }
@@ -65,4 +73,16 @@ function aparecerLimon(){
     limonX=generarAleatorio(0,canvas.width-ANCHOLIMON)
     limonY=0
     actualizarPantalla()
+}
+
+function detectarPiso(){
+    if (limonY + ALTURALIMON == canvas.height-ALTURASUELO){
+        aparecerLimon();
+        vidas=vidas-1
+        mostrarenSpam("txtvidas",vidas)
+    
+        
+    }if(vidas==0){
+        alert("game OVER")
+    }
 }
