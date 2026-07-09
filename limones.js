@@ -2,8 +2,8 @@ let canvas=document.getElementById("areaJuego")
 let cxt=canvas.getContext("2d")
 
 const ALTURASUELO=40
-const ALTURAPERSONAJE=60
-const ANCHOPERSONAJE=50
+let ALTURAPERSONAJE=80
+let ANCHOPERSONAJE=40
 const ANCHOLIMON=20
 const ALTURALIMON=20
 let personajeX=canvas.width/2
@@ -26,7 +26,7 @@ function dibujarSuelo(){
 }
 
 function dibujarPersonaje(){
-    cxt.fillStyle="red"
+    cxt.fillStyle="yellow"
     cxt.fillRect(personajeX,canvas.height-(ALTURASUELO+ALTURAPERSONAJE),ANCHOPERSONAJE,ALTURAPERSONAJE)
 }
 function moverIzquierda(){
@@ -49,7 +49,7 @@ function limpiarCanvas(){
     cxt.clearRect(0,0,canvas.width,canvas.height)
 }
 function dibujarlimon(){
-    cxt.fillStyle="yellow"
+    cxt.fillStyle="green"
     cxt.fillRect(limonX,limonY,ANCHOLIMON,ALTURALIMON)
 
 }
@@ -94,7 +94,7 @@ function detectarPiso(){
     
         
     }if(vidas==0){
-        alert("game OVER")
+        alert("perdiste")
         clearInterval(intervalo)
     }
 }
@@ -105,4 +105,9 @@ function reiniciar(){
     vidas=3
     mostrarenSpam("txtvidas",vidas)
     dibujarIniciar()
+}
+function desaparecerPersonaje(){
+    ANCHOPERSONAJE=0;
+    ALTURAPERSONAJE=0;
+    cxt.clearRect(0,0,ANCHOPERSONAJE,ALTURAPERSONAJE)
 }
