@@ -13,6 +13,7 @@ let personajeY=canvas.height-(ALTURASUELO+ALTURAPERSONAJE)
 let puntaje=0
 let vidas=3
 let velocidadCaida=200
+let intervalo=setInterval(bajarlimon,velocidadCaida)
 function dibujarIniciar(){
     setInterval(bajarlimon,velocidadCaida)
     dibujarPersonaje()
@@ -67,8 +68,18 @@ function detectarAtrapado(){
         mostrarenSpam("txtPuntaje",puntaje)
         
     }
-    
+    if(puntaje==3){
+        velocidadCaida=150
+    }else if (puntaje==6) {
+        velocidadCaida=100
+    } else if (puntaje==10) {
+        alert("Ganaste tinenes los limones has la limonada")
+        clearInterval(intervalo)
+    } 
+        
 }
+    
+
 function aparecerLimon(){
     limonX=generarAleatorio(0,canvas.width-ANCHOLIMON)
     limonY=0
@@ -84,5 +95,14 @@ function detectarPiso(){
         
     }if(vidas==0){
         alert("game OVER")
+        clearInterval(intervalo)
     }
+}
+
+function reiniciar(){
+    puntaje=0
+    mostrarenSpam("txtPuntaje",puntaje)
+    vidas=3
+    mostrarenSpam("txtvidas",vidas)
+    dibujarIniciar()
 }
